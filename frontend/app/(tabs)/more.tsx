@@ -2,26 +2,38 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useAuthStore } from '../../src/stores/authStore';
+import { useRouter } from 'expo-router';
 import { theme } from '../../src/constants/theme';
 
 export default function MoreScreen() {
   const { user, logout } = useAuthStore();
+  const router = useRouter();
 
   const menuItems = [
     {
-      title: 'Settings',
-      icon: 'cog',
-      onPress: () => {},
+      title: 'Takeout Orders',
+      icon: 'food-takeout-box',
+      onPress: () => router.push('/takeout'),
     },
     {
-      title: 'Reports',
+      title: 'Live Dashboard',
+      icon: 'monitor-dashboard',
+      onPress: () => router.push('/live-dashboard'),
+    },
+    {
+      title: 'Reports & Analytics',
       icon: 'chart-bar',
-      onPress: () => {},
+      onPress: () => router.push('/reports'),
+    },
+    {
+      title: 'Printer Settings',
+      icon: 'printer',
+      onPress: () => router.push('/printers'),
     },
     {
       title: 'Inventory',
       icon: 'warehouse',
-      onPress: () => {},
+      onPress: () => router.push('/inventory'),
     },
     {
       title: 'Employees',
@@ -31,6 +43,11 @@ export default function MoreScreen() {
     {
       title: 'Expenses',
       icon: 'cash',
+      onPress: () => {},
+    },
+    {
+      title: 'Settings',
+      icon: 'cog',
       onPress: () => {},
     },
   ];
