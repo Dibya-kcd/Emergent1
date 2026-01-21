@@ -148,8 +148,8 @@ class BluetoothPrinterService {
   }
 
   async printKOT(order: any): Promise<boolean> {
-    if (!this.connectedDevice) {
-      Alert.alert('Error', 'No printer connected');
+    if (!this.checkAvailability() || !this.connectedDevice) {
+      Alert.alert('Error', 'No printer connected. This feature requires a mobile device with Bluetooth.');
       return false;
     }
 
@@ -185,8 +185,8 @@ class BluetoothPrinterService {
   }
 
   async printBill(order: any, settings: any): Promise<boolean> {
-    if (!this.connectedDevice) {
-      Alert.alert('Error', 'No printer connected');
+    if (!this.checkAvailability() || !this.connectedDevice) {
+      Alert.alert('Error', 'No printer connected. This feature requires a mobile device with Bluetooth.');
       return false;
     }
 
@@ -225,8 +225,8 @@ class BluetoothPrinterService {
   }
 
   async testPrint(): Promise<boolean> {
-    if (!this.connectedDevice) {
-      Alert.alert('Error', 'No printer connected');
+    if (!this.checkAvailability() || !this.connectedDevice) {
+      Alert.alert('Error', 'No printer connected. This feature requires a mobile device with Bluetooth.');
       return false;
     }
 
@@ -236,6 +236,7 @@ class BluetoothPrinterService {
       const base64Data = Buffer.from(escposData, 'utf-8').toString('base64');
 
       console.log('Test print:', base64Data);
+      Alert.alert('Success', 'Test print command sent to printer!');
 
       return true;
     } catch (error) {
