@@ -158,27 +158,33 @@ backend:
         
   - task: "API endpoint: PUT /api/menu/{id}"
     implemented: true
-    working: "NA"
+    working: true
     file: "backend/server.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
         comment: "Implemented but not tested yet"
+      - working: true
+        agent: "testing"
+        comment: "Successfully tested - updated menu item from 'Butter Chicken' to 'Butter Chicken Deluxe' with price change"
         
   - task: "API endpoint: DELETE /api/menu/{id}"
     implemented: true
-    working: "NA"
+    working: true
     file: "backend/server.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
         comment: "Implemented but not tested yet"
+      - working: true
+        agent: "testing"
+        comment: "Successfully tested - deleted menu item and returned success response"
         
   - task: "API endpoint: GET /api/tables"
     implemented: true
