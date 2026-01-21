@@ -38,6 +38,8 @@ class BluetoothPrinterService {
   }
 
   async requestBluetoothPermissions(): Promise<boolean> {
+    if (!this.checkAvailability()) return false;
+    
     if (Platform.OS === 'android') {
       try {
         const granted = await PermissionsAndroid.requestMultiple([
@@ -60,13 +62,15 @@ class BluetoothPrinterService {
   }
 
   async scanForPrinters(onDeviceFound: (device: Device) => void): Promise<void> {
+    if (!this.checkAvailability()) return;
+    
     const hasPermissions = await this.requestBluetoothPermissions();
     if (!hasPermissions) {
       Alert.alert('Permissions Required', 'Please grant Bluetooth permissions to scan for printers.');
       return;
     }
 
-    this.bleManager.startDeviceScan(null, null, (error, device) => {
+    this.bleManager.startDeviceScan(null, null, (error: any, device: any) => {
       if (error) {
         console.error('Scan error:', error);
         return;
@@ -91,6 +95,8 @@ class BluetoothPrinterService {
   }
 
   async connectToPrinter(deviceId: string): Promise<boolean> {
+    if (!this.checkAvailability()) return false;
+    
     try {
       const device = await this.bleManager.connectToDevice(deviceId);
       await device.discoverAllServicesAndCharacteristics();
@@ -103,10 +109,10 @@ class BluetoothPrinterService {
   }
 
   async disconnectPrinter(): Promise<void> {
-    if (this.connectedDevice) {
-      await this.bleManager.cancelDeviceConnection(this.connectedDevice.id);
-      this.connectedDevice = null;
-    }
+    if (!this.checkAvailability() || !this.connectedDevice) return;
+    
+    await this.bleManager.cancelDeviceConnection(this.connectedDevice.id);
+    this.connectedDevice = null;
   }
 
   // ESC/POS Commands
