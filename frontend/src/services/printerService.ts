@@ -1,12 +1,40 @@
 import { PermissionsAndroid, Platform, Alert } from 'react-native';
-import { BleManager, Device } from 'react-native-ble-plx';
+
+// Type definitions for BLE
+interface Device {
+  id: string;
+  name: string | null;
+}
 
 class BluetoothPrinterService {
-  private bleManager: BleManager;
+  private bleManager: any = null;
   private connectedDevice: Device | null = null;
+  private isInitialized: boolean = false;
 
   constructor() {
-    this.bleManager = new BleManager();
+    // Only initialize BLE on native platforms
+    if (Platform.OS === 'android' || Platform.OS === 'ios') {
+      try {
+        // Dynamically import BLE manager only on native
+        const BleManager = require('react-native-ble-plx').BleManager;
+        this.bleManager = new BleManager();
+        this.isInitialized = true;
+      } catch (error) {
+        console.warn('BLE not available:', error);
+        this.isInitialized = false;
+      }
+    }
+  }
+
+  private checkAvailability(): boolean {
+    if (!this.isInitialized || !this.bleManager) {
+      Alert.alert(
+        'Not Available',
+        'Bluetooth printing is only available on mobile devices. Please use the mobile app.'
+      );
+      return false;
+    }
+    return true;
   }
 
   async requestBluetoothPermissions(): Promise<boolean> {
