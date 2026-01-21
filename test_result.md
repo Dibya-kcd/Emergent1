@@ -143,15 +143,18 @@ backend:
         
   - task: "API endpoint: POST /api/menu"
     implemented: true
-    working: "NA"
+    working: true
     file: "backend/server.py"
     stuck_count: 0
     priority: "high"
-    needs_retesting: true
+    needs_retesting: false
     status_history:
       - working: "NA"
         agent: "main"
         comment: "Implemented but not tested yet"
+      - working: true
+        agent: "testing"
+        comment: "Successfully tested - created menu item 'Butter Chicken' with all required fields"
         
   - task: "API endpoint: PUT /api/menu/{id}"
     implemented: true
