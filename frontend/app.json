@@ -22,9 +22,19 @@
         "BLUETOOTH_ADMIN",
         "BLUETOOTH_SCAN",
         "BLUETOOTH_CONNECT",
+        "BLUETOOTH_ADVERTISE",
         "ACCESS_FINE_LOCATION",
         "ACCESS_COARSE_LOCATION"
       ]
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.restopos.app",
+      "infoPlist": {
+        "NSBluetoothAlwaysUsageDescription": "RestoPOS needs Bluetooth to connect to thermal printers for printing KOTs and bills",
+        "NSBluetoothPeripheralUsageDescription": "RestoPOS needs Bluetooth to discover and connect to thermal printers",
+        "NSLocationWhenInUseUsageDescription": "RestoPOS needs location permission for Bluetooth printer discovery"
+      }
     },
     "web": {
       "bundler": "metro",
