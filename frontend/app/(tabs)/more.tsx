@@ -26,9 +26,9 @@ export default function MoreScreen() {
       onPress: () => router.push('/reports'),
     },
     {
-      title: 'Printer Settings',
-      icon: 'printer',
-      onPress: () => router.push('/printers'),
+      title: 'Printer Management',
+      icon: 'printer-settings',
+      onPress: () => router.push('/printer-management'),
     },
     {
       title: 'Inventory',
